@@ -13,92 +13,56 @@ const SearchBar = () => {
 }
 
 
-const mainScreen = ({navigation}) => {
+const mainScreen = ({ navigation }) => {
 
 
-    const [banner, setbanner] = useState([]);
-
-    useEffect(() => {
-        getDataUsingSimpleGetCall();
-    }, [])
-
-    const getDataUsingSimpleGetCall = () => {
-        axios
-            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/banner/banner')
-            .then(function (response) {
-                // handle success
-                // alert(JSON.stringify(response.data));
-                setbanner(response.data.data)
-                // console.log(JSON.stringify(response.data))
-            })
-            .catch(function (error) {
-                // handle error
-                alert(error.message);
-            })
-            .finally(function () {
-                // always executed
-                // alert('Finally called');
-                // alert(data);
-                console.log(banner);
-
-            });
-    };
 
     return (
         <View style={styles.container}>
 
-            <StatusBar barStyle='light-content' backgroundColor='#FFBF57' />
+            <StatusBar barStyle='dark-content' backgroundColor='#FFBF57' />
 
 
             <ScrollView style={styles.scrollviewContent}>
 
 
-                {/* awal searchbar */}
                 <SearchBar />
-                {/* akhir searchbar */}
 
-                {/* awal komponen banner */}
                 <View style={styles.bannerTop}>
-                    <Text style={{
-                        color: '#696969', fontSize: 17, marginLeft: 5, marginTop: 165, fontWeight
-                            : '600'
-                    }}>HEADLINE OR ADVERTISEMENT</Text>
-                    <FlatList
-                        horizontal
-                        data={banner}
-                        keyExtractor={({ id }, index) => id}
-                        renderItem={({ item }) => (
-                            <View>
-                                <Card>
-                                    <CardItem>
-                                        <Body>
-                                            {/* <Text>{item.captions}</Text> */}
-                                            <Image
-                                                style={{ width: 299, height: 130, resizeMode: 'cover' }}
-                                                source={{
-                                                    uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/banner/${item.picture}`,
-                                                }}
-                                            />
-                                            <Text style={{ color: '#696969', marginTop: 2 }}>{item.captions}</Text>
-                                        </Body>
-                                    </CardItem>
-                                </Card>
-                            </View>
-                        )}
-                    />
+                    <Image source={require('./topBanner.png')}
+                        style={styles.pictureTopBanner} />
+
+                    <Text style={styles.textSehatBersamaKami}>Tetap sehat bersama kami!</Text>
+
+                    <View style={styles.thumbnailBannerColumn}>
+                        {/* 1 */}
+                        <View style={styles.thumbnailBannerRow}>
+                            <Image source={require('./gym.png')} style={styles.thumbnailBanner} />
+                            <Image source={require('./gejalaCovid.png')} style={styles.thumbnailBanner} />
+                        </View>
+
+                        {/* 2 */}
+                        <View style={styles.thumbnailBannerRow}>
+                            <Image source={require('./cegahCovid.png')} style={styles.thumbnailBanner} />
+                            <Image source={require('./junkfood.png')} style={styles.thumbnailBanner} />
+                        </View>
+
+                        {/* 3 */}
+                        <View style={styles.thumbnailBannerRow}>
+                            <Image source={require('./salad.png')} style={styles.thumbnailBanner} />
+                        </View>
+                    </View>
                 </View>
-                {/* akhir komponen banner */}
 
 
             </ScrollView>
 
 
 
-            {/* bagian bottom navigator */}
             <View style={styles.viewBottomNav}>
                 <View style={styles.viewTombolBottomNav}>
                     <TouchableOpacity>
-                        <Icon type="MaterialIcons" name="explore" style={{ color: '#FFBF57', fontSize: 28, alignSelf: 'center' }}/>
+                        <Icon type="MaterialIcons" name="explore" style={{ color: '#FFBF57', fontSize: 28, alignSelf: 'center' }} />
                         <Text style={{ color: '#FFBF57', fontSize: 15, alignSelf: 'center' }}>Explore</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('Shopping')}>
@@ -116,7 +80,6 @@ const mainScreen = ({navigation}) => {
                 </View>
 
             </View>
-            {/* akhir bagian bottom navigator */}
 
         </View>
     )
@@ -134,7 +97,7 @@ const styles = StyleSheet.create({
         width: '100%',
         top: 0,
         height: 150,
-        backgroundColor: '#aaaaaa',
+        // backgroundColor: '#aaaaaa',
     },
     searchCard: {
         top: 4,
@@ -143,14 +106,15 @@ const styles = StyleSheet.create({
     },
     judulExplore: {
         marginLeft: 8,
-        marginTop: 30,
-        color: 'white',
+        marginTop: 35,
+        color: '#43464b',
         fontSize: 50,
     },
     bannerTop: {
-        width: '95%',
-        top: -160,
+        width: '97%',
+        top: -50,
         alignSelf: 'center',
+        alignItems: 'center',
     },
     scrollviewContent: {
         width: '100%',
@@ -166,6 +130,34 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 3,
+    },
+    pictureTopBanner: {
+        width: 370,
+        height: 250,
+        resizeMode: 'contain'
+    },
+    thumbnailBanner: {
+        width: 180,
+        height: 240,
+        resizeMode: 'contain',
+    },
+    thumbnailBannerColumn: {
+        flexDirection: 'column',
+        alignSelf: 'center',
+        width: '100%',
+    },
+    thumbnailBannerRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 10,
+    },
+    textSehatBersamaKami: {
+        textAlign: 'left',
+        left: -80,
+        marginTop: 10,
+        marginBottom: 5,
+        fontFamily: 'nunito-bold',
+        fontSize: 20,
     }
 })
 

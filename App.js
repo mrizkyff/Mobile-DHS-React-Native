@@ -17,6 +17,7 @@ const fetchFonts = () => {
   return Font.loadAsync({
     'space-mono-regular': require('./assets/fonts/Nunito-Regular.ttf'),
     'nunito-black': require('./assets/fonts/Nunito-Black.ttf'),
+    'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf'),
     'nunito-regular': require('./assets/fonts/SpaceMono-Regular.ttf'),
     'droid-sans-regular': require('./assets/fonts/DroidSans.ttf'),
     'montserrat-regular': require('./assets/fonts/Montserrat-Regular.ttf'),

@@ -7,19 +7,7 @@ import axios from "axios";
 const SearchBar = () => {
     return (
         <View style={styles.searchBar}>
-            <Text style={styles.judulExplore}>Explore</Text>
-            <Card style={styles.searchCard}>
-                <CardItem >
-                    <Body>
-                        <Item regular style={{ height: 25, borderColor: 'white' }}>
-                            <Input placeholder='Cari tips dan trik hidup sehat' placeholderTextColor='#D6D6D6' style={{ color: '#696969', fontSize: 17 }} />
-                            <TouchableOpacity>
-                                <Icon type="FontAwesome" name="search" style={{ color: '#D6D6D6', fontSize: 20 }} />
-                            </TouchableOpacity>
-                        </Item>
-                    </Body>
-                </CardItem>
-            </Card>
+            <Text style={styles.judulExplore}>Stay Health!</Text>
         </View>
     )
 }
@@ -146,7 +134,7 @@ const styles = StyleSheet.create({
         width: '100%',
         top: 0,
         height: 150,
-        backgroundColor: '#FFBF57',
+        backgroundColor: '#aaaaaa',
     },
     searchCard: {
         top: 4,

@@ -12,7 +12,7 @@ const SearchBar = () => {
                 <CardItem >
                     <Body>
                         <Item regular style={{ height: 25, borderColor: 'white' }}>
-                            <Input placeholder='Cari menu kesukaan anda ...' placeholderTextColor='#D6D6D6' style={{ color: '#696969', fontSize: 17 }} />
+                            <Input placeholder='Cari tips dan trik hidup sehat' placeholderTextColor='#D6D6D6' style={{ color: '#696969', fontSize: 17 }} />
                             <TouchableOpacity>
                                 <Icon type="FontAwesome" name="search" style={{ color: '#D6D6D6', fontSize: 20 }} />
                             </TouchableOpacity>
@@ -25,7 +25,7 @@ const SearchBar = () => {
 }
 
 
-const mainScreen = () => {
+const mainScreen = ({navigation}) => {
 
 
     const [banner, setbanner] = useState([]);
@@ -74,7 +74,7 @@ const mainScreen = () => {
                     <Text style={{
                         color: '#696969', fontSize: 17, marginLeft: 5, marginTop: 165, fontWeight
                             : '600'
-                    }}>Apa yang baru?</Text>
+                    }}>HEADLINE OR ADVERTISEMENT</Text>
                     <FlatList
                         horizontal
                         data={banner}
@@ -110,10 +110,10 @@ const mainScreen = () => {
             <View style={styles.viewBottomNav}>
                 <View style={styles.viewTombolBottomNav}>
                     <TouchableOpacity>
-                        <Icon type="MaterialIcons" name="explore" style={{ color: '#FFBF57', fontSize: 28, alignSelf: 'center' }} />
+                        <Icon type="MaterialIcons" name="explore" style={{ color: '#FFBF57', fontSize: 28, alignSelf: 'center' }}/>
                         <Text style={{ color: '#FFBF57', fontSize: 15, alignSelf: 'center' }}>Explore</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Shopping')}>
                         <Icon type="MaterialIcons" name="store" style={{ color: '#BEBEBE', fontSize: 28, alignSelf: 'center' }} />
                         <Text style={{ color: '#BEBEBE', fontSize: 15, alignSelf: 'center' }}>Belanja</Text>
                     </TouchableOpacity>

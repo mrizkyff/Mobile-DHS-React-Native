@@ -7,7 +7,7 @@ import axios from "axios";
 const SearchBar = () => {
     return (
         <View style={styles.searchBar}>
-            <Text style={styles.judulExplore}>Stay Health!</Text>
+            <Text style={styles.judulExplore}>Home</Text>
         </View>
     )
 }
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     },
     bannerTop: {
         width: '97%',
-        top: -50,
+        top: -65,
         alignSelf: 'center',
         alignItems: 'center',
     },

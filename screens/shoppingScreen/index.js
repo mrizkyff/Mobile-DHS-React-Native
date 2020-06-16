@@ -25,7 +25,7 @@ const SearchBar = () => {
 }
 
 
-const ShoppingScreen = ({navigation}) => {
+const ShoppingScreen = ({ navigation }) => {
 
 
     const [banner, setbanner] = useState([]);
@@ -73,33 +73,64 @@ const ShoppingScreen = ({navigation}) => {
                 <View style={styles.bannerTop}>
                     <Text style={{
                         color: '#696969', fontSize: 17, marginLeft: 5, marginTop: 165, fontWeight
-                            : '600'
+                            : '600', fontFamily: 'nunito-bold'
                     }}>Apa yang baru?</Text>
                     <FlatList
                         horizontal
                         data={banner}
                         keyExtractor={({ id }, index) => id}
                         renderItem={({ item }) => (
-                            <View>
-                                <Card>
-                                    <CardItem>
-                                        <Body>
-                                            {/* <Text>{item.captions}</Text> */}
-                                            <Image
-                                                style={{ width: 299, height: 130, resizeMode: 'cover' }}
-                                                source={{
-                                                    uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/banner/${item.picture}`,
-                                                }}
-                                            />
-                                            <Text style={{ color: '#696969', marginTop: 2 }}>{item.captions}</Text>
-                                        </Body>
-                                    </CardItem>
-                                </Card>
-                            </View>
+                            <Image
+                                style={{ width: 326, height: 113, resizeMode: 'contain', marginRight: -6 }}
+                                source={{
+                                    uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/banner/${item.picture}`,
+                                }}
+                            />
                         )}
                     />
                 </View>
                 {/* akhir komponen banner */}
+
+                {/* awal komponen menu icon */}
+                <View style={styles.viewbannerIcon}>
+                    <Text style={{
+                        color: '#696969', fontSize: 17, marginLeft: 5, marginTop: 165, fontWeight
+                            : '600', fontFamily: 'nunito-bold'
+                    }}>Kategori untuk anda</Text>
+                </View>
+                <View style={styles.viewMenuIcon}>
+                    <View style={{ flex: 1, flexDirection: 'column', marginTop: 20 }}>
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <TouchableOpacity onPress={() => alert('pregnancy')}>
+                                <Image source={require('./pregnancy.png')} style={styles.imageIcon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => alert('diabetes')}>
+                                <Image source={require('./diabetes.png')} style={styles.imageIcon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => alert('muscle_building')}>
+                                <Image source={require('./muscle_building.png')} style={styles.imageIcon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => alert('hipertensi')}>
+                                <Image source={require('./hipertensi.png')} style={styles.imageIcon} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <TouchableOpacity onPress={() => alert('kolesterol')}>
+                                <Image source={require('./kolesterol.png')} style={styles.imageIcon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => alert('stroke')}>
+                                <Image source={require('./stroke.png')} style={styles.imageIcon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => alert('weight_gain')}>
+                                <Image source={require('./weight_gain.png')} style={styles.imageIcon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => alert('weight_loss')}>
+                                <Image source={require('./weight_loss.png')} style={styles.imageIcon} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+                {/* akhir komponen menu icon */}
 
 
             </ScrollView>
@@ -178,6 +209,24 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 3,
+    },
+    viewMenuIcon: {
+        width: '100%',
+        height: 221,
+        backgroundColor: 'white',
+        top: -315,
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    imageIcon: {
+        width: 85,
+        height: 85,
+        resizeMode: 'contain',
+    },
+    viewbannerIcon: {
+        top: -320,
+        marginLeft: 7
     }
 })
 

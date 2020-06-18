@@ -71,10 +71,7 @@ const ShoppingScreen = ({ navigation }) => {
 
                 {/* awal komponen banner */}
                 <View style={styles.bannerTop}>
-                    <Text style={{
-                        color: '#696969', fontSize: 17, marginLeft: 5, marginTop: 165, fontWeight
-                            : '600', fontFamily: 'nunito-bold'
-                    }}>Apa yang baru?</Text>
+                    <Text style={styles.judulMenu}>Apa yang baru?</Text>
                     <FlatList
                         horizontal
                         data={banner}
@@ -92,46 +89,49 @@ const ShoppingScreen = ({ navigation }) => {
                 {/* akhir komponen banner */}
 
                 {/* awal komponen menu icon */}
-                <View style={styles.viewbannerIcon}>
-                    <Text style={{
-                        color: '#696969', fontSize: 17, marginLeft: 5, marginTop: 165, fontWeight
-                            : '600', fontFamily: 'nunito-bold'
-                    }}>Kategori untuk anda</Text>
-                </View>
-                <View style={styles.viewMenuIcon}>
-                    <View style={{ flex: 1, flexDirection: 'column', marginTop: 20 }}>
-                        <View style={{ flex: 1, flexDirection: 'row' }}>
-                            <TouchableOpacity onPress={() => alert('pregnancy')}>
-                                <Image source={require('./pregnancy.png')} style={styles.imageIcon} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => alert('diabetes')}>
-                                <Image source={require('./diabetes.png')} style={styles.imageIcon} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => alert('muscle_building')}>
-                                <Image source={require('./muscle_building.png')} style={styles.imageIcon} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => alert('hipertensi')}>
-                                <Image source={require('./hipertensi.png')} style={styles.imageIcon} />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ flex: 1, flexDirection: 'row' }}>
-                            <TouchableOpacity onPress={() => alert('kolesterol')}>
-                                <Image source={require('./kolesterol.png')} style={styles.imageIcon} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => alert('stroke')}>
-                                <Image source={require('./stroke.png')} style={styles.imageIcon} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => alert('weight_gain')}>
-                                <Image source={require('./weight_gain.png')} style={styles.imageIcon} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => alert('weight_loss')}>
-                                <Image source={require('./weight_loss.png')} style={styles.imageIcon} />
-                            </TouchableOpacity>
+                <View style={styles.containerMenuIcon}>
+                    <Text style={styles.judulMenu}>Kategori untuk anda</Text>
+                    <View style={styles.viewMenuIcon}>
+                        <View style={{ flex: 1, flexDirection: 'column', marginTop: 20 }}>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <TouchableOpacity onPress={() => alert('pregnancy')}>
+                                    <Image source={require('./pregnancy.png')} style={styles.imageIcon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => alert('diabetes')}>
+                                    <Image source={require('./diabetes.png')} style={styles.imageIcon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => alert('muscle_building')}>
+                                    <Image source={require('./muscle_building.png')} style={styles.imageIcon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => alert('hipertensi')}>
+                                    <Image source={require('./hipertensi.png')} style={styles.imageIcon} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <TouchableOpacity onPress={() => alert('kolesterol')}>
+                                    <Image source={require('./kolesterol.png')} style={styles.imageIcon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => alert('stroke')}>
+                                    <Image source={require('./stroke.png')} style={styles.imageIcon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => alert('weight_gain')}>
+                                    <Image source={require('./weight_gain.png')} style={styles.imageIcon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => alert('weight_loss')}>
+                                    <Image source={require('./weight_loss.png')} style={styles.imageIcon} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </View>
                 {/* akhir komponen menu icon */}
 
+                {/* awal all menu */}
+                {/* <View>
+                    <View style={styles.viewMenuAllMenu}>
+                    </View>
+                </View> */}
+                {/* akhir all menu */}
 
             </ScrollView>
 
@@ -191,8 +191,8 @@ const styles = StyleSheet.create({
         fontSize: 50,
     },
     bannerTop: {
-        width: '95%',
-        top: -160,
+        width: '100%',
+        top: 5,
         alignSelf: 'center',
     },
     scrollviewContent: {
@@ -210,12 +210,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginTop: 3,
     },
+    containerMenuIcon: {
+        width: '100%',
+        flexDirection: 'column',
+        top: 10,
+    },
     viewMenuIcon: {
         width: '100%',
         height: 221,
         backgroundColor: 'white',
-        top: -315,
-        flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
     },
@@ -224,9 +227,20 @@ const styles = StyleSheet.create({
         height: 85,
         resizeMode: 'contain',
     },
-    viewbannerIcon: {
-        top: -320,
-        marginLeft: 7
+    viewMenuAllMenu: {
+        width: '100%',
+        height: 221,
+        backgroundColor: 'white',
+        top: -105,
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    judulMenu: {
+        fontSize: 17,
+        marginLeft: 7,
+        fontFamily: 'nunito-bold',
+        marginBottom: 5,
+        color: '#696969',
     }
 })
 

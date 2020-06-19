@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react'
-import { Text, View, StatusBar, StyleSheet, FlatList, Image } from 'react-native'
+import { Text, View, StatusBar, StyleSheet, FlatList, Image, Alert } from 'react-native'
 import { Card, CardItem, Body, Item, Input, Icon, H3 } from "native-base";
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import axios from "axios";
@@ -24,13 +24,79 @@ const SearchBar = () => {
     )
 }
 
+const CardMenu = (props) => {
+    return (
+        <View>
+            <View
+                style={{
+                    width: 360,
+                    height: 113,
+                    borderRadius: 5,
+                    borderColor: '#c4c4c4',
+                    borderWidth: 1,
+                    backgroundColor: 'white',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    marginTop: 5,
+                }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <Image
+                        source={{
+                            uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/food/${props.foto_item}`,
+                        }}
+                        style={{
+                            width: 111,
+                            height: 111,
+                            resizeMode: 'contain',
+                            borderTopLeftRadius: 5,
+                            borderBottomLeftRadius: 5,
+                        }}
+                    />
+                    <View
+                        style={{
+                            marginLeft: 5,
+                            height: 108,
+                            justifyContent: 'space-around',
+                            flexWrap: 'wrap',
+                            width: '65%',
+                        }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text
+                                style={{ fontWeight: '600', color: '#454545', fontSize: 16, flex: 1, flexWrap: 'wrap' }}>
+                                {props.nama_item}
+                            </Text>
+                        </View>
+                        <Text style={{ fontWeight: '500', color: '#979797', fontSize: 14 }}>
+                            {props.kalori + ' Kalori'}
+                        </Text>
+                        <Text style={{ fontWeight: '400', color: '#979797', fontSize: 14 }}>
+                            {props.kategori}
+                        </Text>
+                        <Text style={{ fontWeight: '500', color: '#979797', fontSize: 15 }}>
+                            {'Rp ' + props.harga}
+                        </Text>
+                        <Image
+                            source={{
+                                uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/other/${props.rating}`
+                            }}
+                            style={{ width: 55, height: 12 }}
+                        />
+                    </View>
+                </View>
+            </View>
+        </View>
+    );
+}
+
 
 const ShoppingScreen = ({ navigation }) => {
 
 
     const [banner, setbanner] = useState([]);
+    const [menu, setMenu] = useState([]);
 
     useEffect(() => {
+        getAllMenuGetCall();
         getDataUsingSimpleGetCall();
     }, [])
 
@@ -52,7 +118,27 @@ const ShoppingScreen = ({ navigation }) => {
                 // alert('Finally called');
                 // alert(data);
                 console.log(banner);
-
+            });
+    };
+    const getAllMenuGetCall = () => {
+        axios
+            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/menu')
+            .then(function (response) {
+                // handle success
+                // alert(JSON.stringify(response.data));
+                setMenu(response.data.data)
+                // console.log(JSON.stringify(response.data))
+            })
+            .catch(function (error) {
+                // handle error
+                alert(error.message);
+            })
+            .finally(function () {
+                // always executed
+                // alert('Finally called');
+                // alert(data);
+                // alert(JSON.stringify(menu))
+                console.log(menu);
             });
     };
 
@@ -89,7 +175,7 @@ const ShoppingScreen = ({ navigation }) => {
                 {/* akhir komponen banner */}
 
                 {/* awal komponen menu icon */}
-                <View style={styles.containerMenuIcon}>
+                <View style={styles.containerMenu}>
                     <Text style={styles.judulMenu}>Kategori untuk anda</Text>
                     <View style={styles.viewMenuIcon}>
                         <View style={{ flex: 1, flexDirection: 'column', marginTop: 20 }}>
@@ -127,10 +213,27 @@ const ShoppingScreen = ({ navigation }) => {
                 {/* akhir komponen menu icon */}
 
                 {/* awal all menu */}
-                {/* <View>
-                    <View style={styles.viewMenuAllMenu}>
+                <View style={styles.containerMenu}>
+                    <Text style={styles.judulMenu}>Semua menu kami</Text>
+                    <View style={styles.viewMenuAllMenu} >
+                        <FlatList
+                            data={menu}
+                            keyExtractor={({ id_produk }, index) => id_produk}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity onPress={() => alert('idnya'+item.id_produk)}>
+                                    <CardMenu
+                                        foto_item={item.gambar}
+                                        nama_item={item.nmbrg}
+                                        kalori='250'
+                                        harga={item.harga}
+                                        kategori={item.kategori}
+                                        rating='fiveStar.png'
+                                    />
+                                </TouchableOpacity>
+                            )}
+                        />
                     </View>
-                </View> */}
+                </View>
                 {/* akhir all menu */}
 
             </ScrollView>
@@ -210,7 +313,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginTop: 3,
     },
-    containerMenuIcon: {
+    containerMenu: {
         width: '100%',
         flexDirection: 'column',
         top: 10,
@@ -221,6 +324,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'column',
         alignItems: 'center',
+        marginBottom: 5,
     },
     imageIcon: {
         width: 85,
@@ -229,9 +333,7 @@ const styles = StyleSheet.create({
     },
     viewMenuAllMenu: {
         width: '100%',
-        height: 221,
         backgroundColor: 'white',
-        top: -105,
         flexDirection: 'column',
         alignItems: 'center',
     },

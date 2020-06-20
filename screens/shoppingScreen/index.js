@@ -220,7 +220,13 @@ const ShoppingScreen = ({ navigation }) => {
                             data={menu}
                             keyExtractor={({ id_produk }, index) => id_produk}
                             renderItem={({ item }) => (
-                                <TouchableOpacity onPress={() => alert('idnya'+item.id_produk)}>
+                                <TouchableOpacity onPress={() => {
+                                    navigation.navigate('Details', {
+                                        itemId: 86,
+                                        otherParams :'halaolaho',
+                                        data_detail: item,
+                                    });
+                                }}>
                                     <CardMenu
                                         foto_item={item.gambar}
                                         nama_item={item.nmbrg}

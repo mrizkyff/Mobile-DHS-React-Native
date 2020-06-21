@@ -61,7 +61,7 @@ const mainScreen = ({ navigation }) => {
 
             <View style={styles.viewBottomNav}>
                 <View style={styles.viewTombolBottomNav}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Main")}>
                         <Icon type="MaterialIcons" name="explore" style={{ color: '#FFBF57', fontSize: 28, alignSelf: 'center' }} />
                         <Text style={{ color: '#FFBF57', fontSize: 15, alignSelf: 'center' }}>Explore</Text>
                     </TouchableOpacity>
@@ -69,7 +69,7 @@ const mainScreen = ({ navigation }) => {
                         <Icon type="MaterialIcons" name="store" style={{ color: '#BEBEBE', fontSize: 28, alignSelf: 'center' }} />
                         <Text style={{ color: '#BEBEBE', fontSize: 15, alignSelf: 'center' }}>Belanja</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
                         <Icon type="MaterialIcons" name="shopping-basket" style={{ color: '#BEBEBE', fontSize: 28, alignSelf: 'center' }} />
                         <Text style={{ color: '#BEBEBE', fontSize: 15, alignSelf: 'center' }}>Keranjang</Text>
                     </TouchableOpacity>

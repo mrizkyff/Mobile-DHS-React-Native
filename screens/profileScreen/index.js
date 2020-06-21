@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react'
-import { Text, View, StatusBar, StyleSheet, FlatList, Image,ImageBackground, TextInput } from 'react-native'
+import { Text, View, StatusBar, StyleSheet, FlatList, Image, ImageBackground, TextInput } from 'react-native'
 import { Card, CardItem, Body, Item, Input, Icon, H3 } from "native-base";
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import axios from "axios";
@@ -28,15 +28,20 @@ const ProfileScreen = ({ navigation }) => {
                             alignItems: 'center',
                         }}
                         source={require('./background_img.jpeg')}>
-                        <Image
-                            source={require('./profile_example.png')}
-                            style={{
-                                width: 100,
-                                height: 100,
-                                backgroundColor: 'white',
-                                borderRadius: 50,
-                                marginTop: -50,
-                            }}></Image>
+                        <View>
+                            <Image
+                                source={require('./profile_example.png')}
+                                style={{
+                                    width: 100,
+                                    height: 100,
+                                    backgroundColor: 'white',
+                                    borderRadius: 50,
+                                    marginTop: -50,
+                                }}></Image>
+                            <View style={{ backgroundColor: 'white', width: 28, height: 28, position: 'absolute', justifyContent: 'center', alignItems: 'center', borderRadius: 14, right: 0, bottom: 0 }}>
+                                <Icon type="FontAwesome" name="camera" style={{ color: 'gray', fontSize: 15 }} />
+                            </View>
+                        </View>
                     </ImageBackground>
 
                     <View style={styles.cardProfileTop}>
@@ -102,11 +107,11 @@ const ProfileScreen = ({ navigation }) => {
                             backgroundColor: '#696969',
                             width: 340,
                             height: 40,
-                            marginTop: 10,
+                            marginTop: 5,
                             justifyContent: 'center',
                             alignItems: 'center',
                             borderRadius: 5,
-                            marginBottom: 30,
+                            marginBottom: 10,
                         }}>
                         <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>
                             LOGOUT
@@ -176,7 +181,7 @@ const styles = StyleSheet.create({
     },
     cardProfileTop: {
         width: '90%',
-        height: 270,
+        height: 240,
         backgroundColor: 'white',
         borderRadius: 10,
         marginTop: -70,
@@ -195,7 +200,7 @@ const styles = StyleSheet.create({
     dataContainer: {},
     cardProfileMiddle: {
         width: '90%',
-        height: 120,
+        height: 100,
         marginTop: 5,
         backgroundColor: 'white',
         borderRadius: 10,
@@ -206,8 +211,8 @@ const styles = StyleSheet.create({
     },
     cardProfileBottom: {
         width: '90%',
-        height: 60,
-        marginTop: 10,
+        height: 55,
+        marginTop: 5,
         backgroundColor: 'white',
         borderRadius: 10,
         padding: 10,

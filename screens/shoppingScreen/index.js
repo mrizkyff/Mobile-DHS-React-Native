@@ -223,7 +223,7 @@ const ShoppingScreen = ({ navigation }) => {
                                 <TouchableOpacity onPress={() => {
                                     navigation.navigate('Details', {
                                         itemId: 86,
-                                        otherParams :'halaolaho',
+                                        otherParams: 'halaolaho',
                                         data_detail: item,
                                     });
                                 }}>
@@ -244,29 +244,30 @@ const ShoppingScreen = ({ navigation }) => {
 
             </ScrollView>
 
+            
+
 
 
             {/* bagian bottom navigator */}
             <View style={styles.viewBottomNav}>
                 <View style={styles.viewTombolBottomNav}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Main')}>
+                    <TouchableOpacity onPress={() => navigation.navigate("Main")}>
                         <Icon type="MaterialIcons" name="explore" style={{ color: '#BEBEBE', fontSize: 28, alignSelf: 'center' }} />
                         <Text style={{ color: '#BEBEBE', fontSize: 15, alignSelf: 'center' }}>Explore</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Shopping')}>
                         <Icon type="MaterialIcons" name="store" style={{ color: '#FFBF57', fontSize: 28, alignSelf: 'center' }} />
                         <Text style={{ color: '#FFBF57', fontSize: 15, alignSelf: 'center' }}>Belanja</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
                         <Icon type="MaterialIcons" name="shopping-basket" style={{ color: '#BEBEBE', fontSize: 28, alignSelf: 'center' }} />
                         <Text style={{ color: '#BEBEBE', fontSize: 15, alignSelf: 'center' }}>Keranjang</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
                         <Icon type="MaterialIcons" name="account-circle" style={{ color: '#BEBEBE', fontSize: 28, alignSelf: 'center' }} />
                         <Text style={{ color: '#BEBEBE', fontSize: 15, alignSelf: 'center' }}>Profil</Text>
                     </TouchableOpacity>
                 </View>
-
             </View>
             {/* akhir bagian bottom navigator */}
 

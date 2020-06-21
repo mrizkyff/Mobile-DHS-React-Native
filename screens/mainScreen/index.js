@@ -78,7 +78,6 @@ const mainScreen = ({ navigation }) => {
                         <Text style={{ color: '#BEBEBE', fontSize: 15, alignSelf: 'center' }}>Profil</Text>
                     </TouchableOpacity>
                 </View>
-
             </View>
 
         </View>

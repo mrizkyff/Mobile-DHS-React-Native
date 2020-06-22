@@ -5,29 +5,70 @@ import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import axios from "axios";
 
 
-
-
-
 const ProfileScreen = ({ navigation }) => {
 
-    const [myOrder, setMyOrder] = useState([]);
+    const initialState = {
+        fname: '',
+        lname: '',
+        username: '',
+        password: '',
+        email: '',
+        telp: '',
+        alamat: '',
+        id_user: '',
+        level: '',
+        status: '',
+        tgl_registrasi: '',
+    }
+
+    const [myProfile, setMyProfile] = useState([]);
+
+    const [updateUser, setupdateUser] = useState(initialState)
 
     useEffect(() => {
         getProfileCall();
     }, [])
 
+    const postUpdateUser = (updateUser) => {
+        axios
+            .put('http://192.168.8.101/restApi-dietHouseSemarang/api/profile/profile', {
+                email: updateUser.email,
+                username: updateUser.username,
+                telp: updateUser.telp,
+                alamat: updateUser.alamat,
+                password: updateUser.password,
+            })
+            .then(function (response) {
+                // handle success
+                // alert(JSON.stringify(response.data));
+                alert('Data berhasil di update!');
+                // setdata(response.data.data)
+                // console.log(JSON.stringify(response.data))
+            })
+            .catch(function (error) {
+                // handle error
+                alert(error.message);
+            })
+            .finally(function () {
+                // always executed
+                // alert('Finally called');
+                // alert(data);
+                // console.log(data);
+                // getDataUsingSimpleGetCall();
+            });
+    };
 
     const getProfileCall = () => {
         axios
             .get('http://192.168.8.101/restApi-dietHouseSemarang/api/profile/profile', {
                 params: {
-                    id: '11'
+                    id: '12'
                 }
             })
             .then(function (response) {
                 // handle success
                 // alert(JSON.stringify(response.data));
-                setMyOrder(response.data.data)
+                setMyProfile(response.data.data)
                 // console.log(JSON.stringify(response.data))
             })
             .catch(function (error) {
@@ -39,7 +80,9 @@ const ProfileScreen = ({ navigation }) => {
                 // alert('Finally called');
                 // alert(data);
                 // alert(JSON.stringify(menu))
-                console.log(myOrder);
+                console.log(myProfile);
+                console.log({ updateUser });
+
             });
     };
 
@@ -64,7 +107,7 @@ const ProfileScreen = ({ navigation }) => {
                         <View>
                             <Image
                                 source={{
-                                    uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/user/${myOrder.foto}`,
+                                    uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/user/${myProfile.foto}`,
                                 }}
                                 style={{
                                     width: 100,
@@ -82,33 +125,34 @@ const ProfileScreen = ({ navigation }) => {
 
                     <View style={styles.cardProfileTop}>
                         <View style={styles.dataContainer}>
-                            <TextInput value={myOrder.f_name + ' ' + myOrder.l_name}></TextInput>
+                            <Text>{myProfile.f_name + ' ' + myProfile.l_name}</Text>
                             <Text style={styles.profileLabel}>Full Name</Text>
                         </View>
                         <View style={styles.dataContainer}>
-                            <TextInput value={myOrder.email}></TextInput>
+                            <TextInput value={myProfile.email} onChangeText={(text) => setMyProfile({ ...myProfile, email: text })}></TextInput>
                             <Text style={styles.profileLabel}>Email</Text>
                         </View>
                         <View style={styles.dataContainer}>
-                            <TextInput value={myOrder.username}></TextInput>
+                            <TextInput value={myProfile.username} onChangeText={(text) => setMyProfile({ ...myProfile, username: text })}></TextInput>
                             <Text style={styles.profileLabel}>Username</Text>
                         </View>
                         <View style={styles.dataContainer}>
-                            <TextInput value={myOrder.telp}></TextInput>
+                            <TextInput value={myProfile.telp} onChangeText={(text) => setMyProfile({ ...myProfile, telp: text })}></TextInput>
                             <Text style={styles.profileLabel}>Telephone</Text>
                         </View>
                         <View style={styles.dataContainer}>
-                            <TextInput value={myOrder.alamat}></TextInput>
+                            <TextInput value={myProfile.alamat} onChangeText={(text) => setMyProfile({ ...myProfile, alamat: text })}></TextInput>
                             <Text style={styles.profileLabel}>Alamat</Text>
                         </View>
                     </View>
 
                     <View style={styles.cardProfileMiddle}>
                         <View style={styles.dataContainer}>
-                            <TextInput value={myOrder.tgl_registrasi}></TextInput>
+                            <Text>{myProfile.tgl_registrasi}</Text>
                             <Text style={styles.profileLabel}>Registered on</Text>
                         </View>
                         <View style={styles.dataContainer}>
+                            {/* belum dinamis ok */}
                             <Text style={styles.profileText}>Active</Text>
                             <Text style={styles.profileLabel}>User Status</Text>
                         </View>
@@ -116,7 +160,7 @@ const ProfileScreen = ({ navigation }) => {
 
                     <View style={styles.cardProfileBottom}>
                         <View style={styles.dataContainer}>
-                            <TextInput value={myOrder.password} secureTextEntry={true} />
+                            <TextInput value={myProfile.password} secureTextEntry={true} onChangeText={(text) => setMyProfile({ ...myProfile, password: text })} />
                             <Text style={styles.profileLabel}>Password</Text>
                         </View>
                         <TouchableOpacity
@@ -127,10 +171,9 @@ const ProfileScreen = ({ navigation }) => {
                                 borderRadius: 30,
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                            }}>
-                            <Text style={{ color: 'white', fontSize: 12, fontWeight: '600' }}>
-                                Change
-              </Text>
+                            }}
+                            onPress={() => postUpdateUser(myProfile)}>
+                            <Text style={{ color: 'white', fontSize: 12, fontWeight: '600' }} >Change</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -145,10 +188,13 @@ const ProfileScreen = ({ navigation }) => {
                             borderRadius: 5,
                             marginBottom: 10,
                         }}>
-                        <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>
-                            LOGOUT
-            </Text>
+                        <Text style={{ color: 'white', fontWeight: '700', fontSize: 15 }}>LOGOUT</Text>
                     </TouchableOpacity>
+                    <Text>{'email = ' + myProfile.email}</Text>
+                    <Text>{'username = ' + myProfile.username}</Text>
+                    <Text>{'telp = ' + myProfile.telp}</Text>
+                    <Text>{'alamat = ' + myProfile.alamat}</Text>
+                    <Text>{'password = ' + myProfile.password}</Text>
                 </View>
 
 

@@ -7,8 +7,41 @@ import axios from "axios";
 
 
 
+
 const ProfileScreen = ({ navigation }) => {
 
+    const [myOrder, setMyOrder] = useState([]);
+
+    useEffect(() => {
+        getProfileCall();
+    }, [])
+
+
+    const getProfileCall = () => {
+        axios
+            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/profile/profile', {
+                params: {
+                    id: '11'
+                }
+            })
+            .then(function (response) {
+                // handle success
+                // alert(JSON.stringify(response.data));
+                setMyOrder(response.data.data)
+                // console.log(JSON.stringify(response.data))
+            })
+            .catch(function (error) {
+                // handle error
+                alert(error.message);
+            })
+            .finally(function () {
+                // always executed
+                // alert('Finally called');
+                // alert(data);
+                // alert(JSON.stringify(menu))
+                console.log(myOrder);
+            });
+    };
 
 
     return (
@@ -30,13 +63,16 @@ const ProfileScreen = ({ navigation }) => {
                         source={require('./background_img.jpeg')}>
                         <View>
                             <Image
-                                source={require('./profile_example.png')}
+                                source={{
+                                    uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/user/${myOrder.foto}`,
+                                }}
                                 style={{
                                     width: 100,
                                     height: 100,
                                     backgroundColor: 'white',
                                     borderRadius: 50,
                                     marginTop: -50,
+                                    resizeMode: 'center'
                                 }}></Image>
                             <View style={{ backgroundColor: 'white', width: 28, height: 28, position: 'absolute', justifyContent: 'center', alignItems: 'center', borderRadius: 14, right: 0, bottom: 0 }}>
                                 <Icon type="FontAwesome" name="camera" style={{ color: 'gray', fontSize: 15 }} />
@@ -46,34 +82,30 @@ const ProfileScreen = ({ navigation }) => {
 
                     <View style={styles.cardProfileTop}>
                         <View style={styles.dataContainer}>
-                            <Text style={styles.profileText}>
-                                Muhamad Rizky Fajar Febrian
-              </Text>
+                            <TextInput value={myOrder.f_name + ' ' + myOrder.l_name}></TextInput>
                             <Text style={styles.profileLabel}>Full Name</Text>
                         </View>
                         <View style={styles.dataContainer}>
-                            <Text style={styles.profileText}>muhamadrizkyff@gmail.com</Text>
+                            <TextInput value={myOrder.email}></TextInput>
                             <Text style={styles.profileLabel}>Email</Text>
                         </View>
                         <View style={styles.dataContainer}>
-                            <Text style={styles.profileText}>mrizkyff</Text>
+                            <TextInput value={myOrder.username}></TextInput>
                             <Text style={styles.profileLabel}>Username</Text>
                         </View>
                         <View style={styles.dataContainer}>
-                            <Text style={styles.profileText}>+6281228474747</Text>
+                            <TextInput value={myOrder.telp}></TextInput>
                             <Text style={styles.profileLabel}>Telephone</Text>
                         </View>
                         <View style={styles.dataContainer}>
-                            <Text style={styles.profileText}>
-                                Jl. Puspanjolo Tengah 4 No 9
-              </Text>
+                            <TextInput value={myOrder.alamat}></TextInput>
                             <Text style={styles.profileLabel}>Alamat</Text>
                         </View>
                     </View>
 
                     <View style={styles.cardProfileMiddle}>
                         <View style={styles.dataContainer}>
-                            <Text style={styles.profileText}>2020-05-06 05:48:22</Text>
+                            <TextInput value={myOrder.tgl_registrasi}></TextInput>
                             <Text style={styles.profileLabel}>Registered on</Text>
                         </View>
                         <View style={styles.dataContainer}>
@@ -84,7 +116,7 @@ const ProfileScreen = ({ navigation }) => {
 
                     <View style={styles.cardProfileBottom}>
                         <View style={styles.dataContainer}>
-                            <TextInput value="jangkrik123" secureTextEntry={true} />
+                            <TextInput value={myOrder.password} secureTextEntry={true} />
                             <Text style={styles.profileLabel}>Password</Text>
                         </View>
                         <TouchableOpacity

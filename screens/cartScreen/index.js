@@ -4,6 +4,8 @@ import { Card, CardItem, Body, Item, Input, Icon, H3 } from "native-base";
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import axios from "axios";
 
+import { connect } from 'react-redux';
+
 
 const MyCard = (props) => {
     return (
@@ -27,26 +29,31 @@ const MyCard = (props) => {
     )
 }
 
-const cartScreen = ({ navigation }) => {
+const cartScreen = ({ sessionIdUser, navigation }) => {
 
     const [myOrder, setMyOrder] = useState([]);
-    
+
     let total = 0;
-    let grandTotal =0;
-    myOrder.forEach(item => {
-        total = total + (item.harga*item.jmlJual)
-        console.log(total);  
-    })
+    let grandTotal = 0;
+    {
+        myOrder != undefined ?
+        myOrder.forEach(item => {
+            total = total + (item.harga * item.jmlJual)
+            console.log(total);
+        })
+        :
+        total = 0
+    }
 
     useEffect(() => {
-        getMyOrderCall();
+        getMyOrderCall(sessionIdUser);
     }, [])
 
-    const getMyOrderCall = () => {
+    const getMyOrderCall = (sessionIdUser) => {
         axios
             .get('http://192.168.8.101/restApi-dietHouseSemarang/api/transaksi/transaction', {
                 params: {
-                    id: '1'
+                    id: sessionIdUser,
                 }
             })
             .then(function (response) {
@@ -57,7 +64,7 @@ const cartScreen = ({ navigation }) => {
             })
             .catch(function (error) {
                 // handle error
-                alert(error.message);
+                alert(JSON.stringify(error.message));
             })
             .finally(function () {
                 // always executed
@@ -80,6 +87,7 @@ const cartScreen = ({ navigation }) => {
             <View style={styles.container2}>
                 <ScrollView style={styles.scrollviewContent}>
                     <Text style={styles.judul}>My Order</Text>
+                    <Text>{'id session : ' + sessionIdUser}</Text>
                     <FlatList
                         data={myOrder}
                         keyExtractor={({ id_transaksi }, index) => id_transaksi}
@@ -118,7 +126,7 @@ const cartScreen = ({ navigation }) => {
                             style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Text style={{ fontSize: 15 }}>{'Total Belanja (tax inc)'}</Text>
                             <Text style={{ fontSize: 15, color: '#ffbf57' }}>
-                                {'Rp '+total}
+                                {'Rp ' + total}
                             </Text>
                         </View>
 
@@ -134,7 +142,7 @@ const cartScreen = ({ navigation }) => {
                             style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Text style={{ fontSize: 15 }}>{'TOTAL'}</Text>
                             <Text style={{ fontSize: 15, color: '#ffbf57' }}>
-                                {'Rp '+(total+20000)}
+                                {'Rp ' + (total + 20000)}
                             </Text>
                         </View>
                     </View>
@@ -256,4 +264,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default cartScreen
+const mapStateToProps = state => ({
+    sessionIdUser: state.id_user
+})
+
+export default connect(mapStateToProps)(cartScreen)

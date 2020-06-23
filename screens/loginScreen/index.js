@@ -4,6 +4,10 @@ import { Input, Item, Icon, Button } from "native-base"
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import axios from 'axios'
 
+import {login, reset} from '../../src/redux/action'
+
+import {connect} from 'react-redux'
+
 // KOMPONEN
 // logo
 const Logo = () => {
@@ -19,7 +23,7 @@ const Logo = () => {
 }
 
 // form
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ login,sessionIdUser,navigation }) => {
 
     // initial state
     const initialState = {
@@ -30,6 +34,11 @@ const LoginScreen = ({ navigation }) => {
     // membuat state dengan usestate
     const [user, setuser] = useState(initialState)
 
+    const [userInfo, setUserInfo] = useState([])
+
+    // fungsi untuk fetch user info
+
+
     // fungsi untuk login
     const loginUser = (user) => {
         axios
@@ -39,16 +48,18 @@ const LoginScreen = ({ navigation }) => {
             })
             .then(function (response) {
                 // handle success
-                // alert(JSON.stringify(response.data));
+                // alert(JSON.stringify(response.data.data));
                 // alert('login berhasil!');
-                // setdata(response.data.data)
+                setUserInfo(response.data.data)
+                // login({id_user: userInfo[0].id_user})
+                login({id_user: response.data.data[0].id_user})
                 // console.log(JSON.stringify(response.data))
                 navigation.navigate('Main');
             })
             .catch(function (error) {
                 // handle error
-                // alert(error.message);
-                alert('Login Gagal! Username atau Password salah.')
+                alert(error.message);
+                // alert('Login Gagal! Username atau Password salah.')
             })
             .finally(function () {
                 // always executed
@@ -85,6 +96,7 @@ const LoginScreen = ({ navigation }) => {
                     <Text style={{ color: '#EEEEEE', fontSize: 20, fontWeight: '600', alignSelf: 'center', textAlign: 'center' }}>Belum punya akun? DAFTAR</Text>
                 </TouchableOpacity>
                 <Text>{'inputan user: ' + user.username + user.password}</Text>
+                <Text>{'sessid: ' + sessionIdUser}</Text>
             </View >
         </View>
     )
@@ -123,4 +135,15 @@ const styles = StyleSheet.create({
         marginTop: 90,
     }
 })
-export default LoginScreen
+
+const mapStateToProps = state => ({
+    sessionIdUser : state.id_user
+})
+
+const mapDispatchToProps = dispatch => ({
+    login : ({id_user}) => dispatch(login(id_user)),
+    decrement : ({payload}) => dispatch(decrement(payload)),
+    reset : () => dispatch(reset()),
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoginScreen)

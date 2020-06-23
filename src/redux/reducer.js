@@ -1,5 +1,5 @@
 const initalState = {
-    id_user: 101
+    id_user: 102
 }
 
 const reducer = (state = initalState, action) => {
@@ -8,6 +8,10 @@ const reducer = (state = initalState, action) => {
         case 'LOGIN':
             return {
                 id_user: action.id_user
+            }
+        case 'RESET':
+            return {
+                id_user: 0
             }
         default:
             break;

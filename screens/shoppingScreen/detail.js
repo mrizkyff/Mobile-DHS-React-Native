@@ -33,7 +33,7 @@ const detail = ({ route, navigation }) => {
                         {data_detail.nmbrg}
                     </Text>
                     <Text style={{ fontSize: 17, color: 'red', fontWeight: 'bold' }}>
-                        {data_detail.harga}
+                        {'Rp '+data_detail.harga}
                     </Text>
                     <Text
                         style={{

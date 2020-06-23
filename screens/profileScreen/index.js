@@ -6,7 +6,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 
-const ProfileScreen = ({ sessionIdUser,navigation }) => {
+const ProfileScreen = ({sessionIdUser,navigation }) => {
 
     const initialState = {
         fname: '',
@@ -26,7 +26,7 @@ const ProfileScreen = ({ sessionIdUser,navigation }) => {
 
 
     useEffect(() => {
-        getProfileCall();
+        getProfileCall(sessionIdUser);
     }, [])
 
     const postUpdateUser = (updateUser) => {
@@ -59,11 +59,11 @@ const ProfileScreen = ({ sessionIdUser,navigation }) => {
             });
     };
 
-    const getProfileCall = () => {
+    const getProfileCall = (sessionIdUser) => {
         axios
             .get('http://192.168.8.101/restApi-dietHouseSemarang/api/profile/profile', {
                 params: {
-                    id: '12'
+                    id: sessionIdUser,
                 }
             })
             .then(function (response) {
@@ -133,7 +133,7 @@ const ProfileScreen = ({ sessionIdUser,navigation }) => {
                             <Text style={styles.profileLabel}>Email</Text>
                         </View>
                         <View style={styles.dataContainer}>
-                            <TextInput value={myProfile.username} onChangeText={(text) => setMyProfile({ ...myProfile, username: text })}></TextInput>
+                            <Text onChangeText={(text) => setMyProfile({ ...myProfile, username: text })}>{myProfile.username}</Text>
                             <Text style={styles.profileLabel}>Username</Text>
                         </View>
                         <View style={styles.dataContainer}>

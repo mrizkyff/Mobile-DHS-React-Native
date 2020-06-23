@@ -23,7 +23,6 @@ const ProfileScreen = ({ navigation }) => {
 
     const [myProfile, setMyProfile] = useState([]);
 
-    const [updateUser, setupdateUser] = useState(initialState)
 
     useEffect(() => {
         getProfileCall();
@@ -37,6 +36,7 @@ const ProfileScreen = ({ navigation }) => {
                 telp: updateUser.telp,
                 alamat: updateUser.alamat,
                 password: updateUser.password,
+                id_user: updateUser.id_user,
             })
             .then(function (response) {
                 // handle success
@@ -81,7 +81,6 @@ const ProfileScreen = ({ navigation }) => {
                 // alert(data);
                 // alert(JSON.stringify(menu))
                 console.log(myProfile);
-                console.log({ updateUser });
 
             });
     };
@@ -195,6 +194,7 @@ const ProfileScreen = ({ navigation }) => {
                     <Text>{'telp = ' + myProfile.telp}</Text>
                     <Text>{'alamat = ' + myProfile.alamat}</Text>
                     <Text>{'password = ' + myProfile.password}</Text>
+                    <Text>{'id = ' + myProfile.id_user}</Text>
                 </View>
 
 

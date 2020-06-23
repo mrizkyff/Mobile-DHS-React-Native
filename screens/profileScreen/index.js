@@ -152,7 +152,8 @@ const ProfileScreen = ({ navigation }) => {
                         </View>
                         <View style={styles.dataContainer}>
                             {/* belum dinamis ok */}
-                            <Text style={styles.profileText}>Active</Text>
+                            {/* eh sekarang sudah dinamis, tapi kurang 1 kondisinya */}
+                            {myProfile.status == '1' ? <Text style={styles.profileText}>Active</Text> : <Text style={styles.profileText}>Deactive</Text>}
                             <Text style={styles.profileLabel}>User Status</Text>
                         </View>
                     </View>

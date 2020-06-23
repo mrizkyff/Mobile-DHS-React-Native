@@ -10,15 +10,17 @@ const MyCard = (props) => {
         <View style={styles.mainCardContainer}>
             {/* <View style={styles.cardImageContainer}>
                         </View> */}
-            <Image source={require('./menu_2.png')} style={styles.cardImageContainer} />
+            <Image source={{ uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/food/${props.gambar}`, }} style={styles.cardImageContainer} />
             <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'space-between', width: 280, paddingHorizontal: 7 }}>
                 <View style={{ justifyContent: 'space-around', width: 190 }}>
                     <Text style={{ fontSize: 16, fontWeight: '600', color: '#454545' }}>{props.nama}</Text>
                     <Text style={{ color: '#454545' }}>{props.kategori}</Text>
+                    <Text style={{ color: '#454545', fontSize: 10, fontStyle: 'italic' }}>{props.tgl_transaksi}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-around', width: 70 }}>
                     <Text style={{ textAlign: 'right', color: '#454545' }}>{'Rp ' + props.harga}</Text>
-                    <Text style={{ textAlign: 'right', color: '#454545' }}>{props.quantity}</Text>
+                    <Text style={{ textAlign: 'right', color: '#454545' }}>{props.quantity + ' pcs'}</Text>
+                    <Text style={{ textAlign: 'right', color: '#454545' }}>{'Rp ' + props.quantity * props.harga}</Text>
                 </View>
             </View>
         </View>
@@ -26,6 +28,47 @@ const MyCard = (props) => {
 }
 
 const cartScreen = ({ navigation }) => {
+
+    const [myOrder, setMyOrder] = useState([]);
+    
+    let total = 0;
+    let grandTotal =0;
+    myOrder.forEach(item => {
+        total = total + (item.harga*item.jmlJual)
+        console.log(total);  
+    })
+
+    useEffect(() => {
+        getMyOrderCall();
+    }, [])
+
+    const getMyOrderCall = () => {
+        axios
+            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/transaksi/transaction', {
+                params: {
+                    id: '1'
+                }
+            })
+            .then(function (response) {
+                // handle success
+                // alert(JSON.stringify(response.data));
+                setMyOrder(response.data.data)
+                // console.log(JSON.stringify(response.data))
+            })
+            .catch(function (error) {
+                // handle error
+                alert(error.message);
+            })
+            .finally(function () {
+                // always executed
+                // alert('Finally called');
+                // alert(data);
+                // alert(JSON.stringify(menu))
+                console.log(myOrder);
+
+            });
+    };
+
 
 
 
@@ -37,12 +80,19 @@ const cartScreen = ({ navigation }) => {
             <View style={styles.container2}>
                 <ScrollView style={styles.scrollviewContent}>
                     <Text style={styles.judul}>My Order</Text>
-
-                    <MyCard
-                        nama='Miago miayam goreng tinggi kalori'
-                        kategori='Weight Gain'
-                        harga='50000'
-                        quantity='12'
+                    <FlatList
+                        data={myOrder}
+                        keyExtractor={({ id_transaksi }, index) => id_transaksi}
+                        renderItem={({ item }) => (
+                            <MyCard
+                                nama={item.nmbrg}
+                                kategori='Weight Gain'
+                                harga={item.harga}
+                                quantity={item.jmlJual}
+                                gambar={item.gambar}
+                                tgl_transaksi={item.tgl_transaksi}
+                            />
+                        )}
                     />
 
                 </ScrollView>
@@ -54,8 +104,7 @@ const cartScreen = ({ navigation }) => {
                             color: '#ffbf57',
                             marginBottom: 5,
                         }}>
-                        TOTAL
-        </Text>
+                        TOTAL</Text>
                     <View
                         style={{
                             width: 360,
@@ -69,7 +118,7 @@ const cartScreen = ({ navigation }) => {
                             style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Text style={{ fontSize: 15 }}>{'Total Belanja (tax inc)'}</Text>
                             <Text style={{ fontSize: 15, color: '#ffbf57' }}>
-                                {'Rp 550.000'}
+                                {'Rp '+total}
                             </Text>
                         </View>
 
@@ -85,7 +134,7 @@ const cartScreen = ({ navigation }) => {
                             style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Text style={{ fontSize: 15 }}>{'TOTAL'}</Text>
                             <Text style={{ fontSize: 15, color: '#ffbf57' }}>
-                                {'Rp 570.000'}
+                                {'Rp '+(total+20000)}
                             </Text>
                         </View>
                     </View>
@@ -182,6 +231,7 @@ const styles = StyleSheet.create({
         height: 80,
         flexDirection: 'row',
         backgroundColor: 'white',
+        marginBottom: 3
     },
     cardImageContainer: {
         width: 80,

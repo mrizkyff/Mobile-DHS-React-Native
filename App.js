@@ -4,6 +4,12 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
+// import react redux
+import { Provider } from "react-redux";
+
+// import store
+import store from './src/redux/store'
+
 
 
 // import screen
@@ -42,9 +48,11 @@ export default function App() {
     //   <SplashScreen />
     //   {/* <LoginScreen /> */}
     // </View>
-    <NavigationContainer>
-      <Router />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Router />
+      </NavigationContainer>
+    </Provider>
   );
 }
 

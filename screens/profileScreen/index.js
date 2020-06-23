@@ -3,9 +3,10 @@ import { Text, View, StatusBar, StyleSheet, FlatList, Image, ImageBackground, Te
 import { Card, CardItem, Body, Item, Input, Icon, H3 } from "native-base";
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import axios from "axios";
+import { connect } from "react-redux";
 
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ sessionIdUser,navigation }) => {
 
     const initialState = {
         fname: '',
@@ -196,6 +197,7 @@ const ProfileScreen = ({ navigation }) => {
                     <Text>{'alamat = ' + myProfile.alamat}</Text>
                     <Text>{'password = ' + myProfile.password}</Text>
                     <Text>{'id = ' + myProfile.id_user}</Text>
+                    <Text>{'session id user = ' + sessionIdUser}</Text>
                 </View>
 
 
@@ -302,4 +304,9 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ProfileScreen
+const mapStateToProps = state => ({
+    sessionIdUser : state.id_user
+})
+
+
+export default connect(mapStateToProps)(ProfileScreen)

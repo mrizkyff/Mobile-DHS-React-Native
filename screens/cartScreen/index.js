@@ -34,15 +34,24 @@ const cartScreen = ({ sessionIdUser, navigation }) => {
     const [myOrder, setMyOrder] = useState([]);
 
     let total = 0;
+    let shipping = 0;
     let grandTotal = 0;
     {
         myOrder != undefined ?
-        myOrder.forEach(item => {
-            total = total + (item.harga * item.jmlJual)
-            console.log(total);
-        })
+            myOrder.forEach(item => {
+                total = total + (item.harga * item.jmlJual)
+                console.log(total);
+            })
+            :
+            total = 0
+    }
+
+    {
+        total == 0
+        ?
+        shipping = 0
         :
-        total = 0
+        shipping = 20000
     }
 
     useEffect(() => {
@@ -134,7 +143,7 @@ const cartScreen = ({ sessionIdUser, navigation }) => {
                             style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Text style={{ fontSize: 15 }}>{'Biaya Antar'}</Text>
                             <Text style={{ fontSize: 15, color: '#ffbf57' }}>
-                                {'Rp 20.000'}
+                                {'Rp '+shipping}
                             </Text>
                         </View>
 
@@ -142,7 +151,7 @@ const cartScreen = ({ sessionIdUser, navigation }) => {
                             style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Text style={{ fontSize: 15 }}>{'TOTAL'}</Text>
                             <Text style={{ fontSize: 15, color: '#ffbf57' }}>
-                                {'Rp ' + (total + 20000)}
+                                {'Rp ' + (total + shipping)}
                             </Text>
                         </View>
                     </View>

@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, StatusBar, Image, TouchableOpacity, } from 'react-native'
+import axios from "axios";
+import { connect } from "react-redux";
 
-const detail = ({ route, navigation }) => {
+const detail = ({ route, navigation, sessionIdUser }) => {
     // const { itemId } = route.params;
     // const { otherParams } = route.params;
     const { data_detail } = route.params;
@@ -9,6 +11,36 @@ const detail = ({ route, navigation }) => {
 
     useEffect(() => {
     }, [])
+
+    const getBeli = () => {
+        axios
+            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/Menu/beli', {
+                params: {
+                    id_user: sessionIdUser,
+                    id_produk: data_detail.id_produk,
+                    quantity : jumlahBeli,
+                }
+            })
+            .then(function (response) {
+                // handle success
+                alert(JSON.stringify(response.data));
+                // setMyOrder(response.data.data)
+                // console.log(JSON.stringify(response.data))
+            })
+            .catch(function (error) {
+                // handle error
+                alert(JSON.stringify(error.message));
+            })
+            .finally(function () {
+                // always executed
+                // alert('Finally called');
+                // alert(data);
+                // alert(JSON.stringify(menu))
+                console.log(myOrder);
+
+            });
+    };
+
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -140,7 +172,7 @@ const detail = ({ route, navigation }) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                         }}
-                        onPress={() => alert('jumlah beli : ' + jumlahBeli+'id item: '+data_detail.id_produk)}>
+                        onPress={() => getBeli()}>
                         <Text style={{ color: 'white', fontSize: 15 }}>Cart</Text>
                     </TouchableOpacity>
                 </View>
@@ -149,6 +181,10 @@ const detail = ({ route, navigation }) => {
     );
 }
 
-export default detail
+const mapStateToProps = state => ({
+    sessionIdUser: state.id_user
+})
+
+export default connect(mapStateToProps)(detail)
 
 const styles = StyleSheet.create({})

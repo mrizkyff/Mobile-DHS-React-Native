@@ -42,7 +42,7 @@ const LoginScreen = ({ login,sessionIdUser,navigation }) => {
     // fungsi untuk login
     const loginUser = (user) => {
         axios
-            .post('http://192.168.8.101/restApi-dietHouseSemarang/api/login', {
+            .post('http://192.168.8.102/restApi-dietHouseSemarang/api/login', {
                 username: user.username,
                 password: user.password,
             })

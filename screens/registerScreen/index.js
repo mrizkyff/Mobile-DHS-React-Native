@@ -39,7 +39,7 @@ const FormRegister = () => {
     // fungsi post untuk ke REST API
     const postNewUser = (newUser) => {
         axios
-            .post('http://192.168.8.104/restApi-dietHouseSemarang/api/registrasi', {
+            .post('http://192.168.8.102/restApi-dietHouseSemarang/api/registrasi', {
                 firstname: newUser.fname,
                 lastname: newUser.lname,
                 username: newUser.username,

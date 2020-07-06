@@ -31,7 +31,7 @@ const ProfileScreen = ({sessionIdUser,navigation }) => {
 
     const postUpdateUser = (updateUser) => {
         axios
-            .put('http://192.168.8.101/restApi-dietHouseSemarang/api/profile/profile', {
+            .put('http://192.168.8.102/restApi-dietHouseSemarang/api/profile/profile', {
                 email: updateUser.email,
                 username: updateUser.username,
                 telp: updateUser.telp,
@@ -61,7 +61,7 @@ const ProfileScreen = ({sessionIdUser,navigation }) => {
 
     const getProfileCall = (sessionIdUser) => {
         axios
-            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/profile/profile', {
+            .get('http://192.168.8.102/restApi-dietHouseSemarang/api/profile/profile', {
                 params: {
                     id: sessionIdUser,
                 }
@@ -107,7 +107,7 @@ const ProfileScreen = ({sessionIdUser,navigation }) => {
                         <View>
                             <Image
                                 source={{
-                                    uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/user/${myProfile.foto}`,
+                                    uri: `http://192.168.8.102/restApi-dietHouseSemarang/asset/img/user/${myProfile.foto}`,
                                 }}
                                 style={{
                                     width: 100,

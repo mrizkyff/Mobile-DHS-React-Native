@@ -42,7 +42,7 @@ const CardMenu = (props) => {
                 <View style={{ flexDirection: 'row' }}>
                     <Image
                         source={{
-                            uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/food/${props.foto_item}`,
+                            uri: `http://192.168.8.102/restApi-dietHouseSemarang/asset/img/food/${props.foto_item}`,
                         }}
                         style={{
                             width: 111,
@@ -87,7 +87,7 @@ const CardMenu = (props) => {
                         </Text>
                         <Image
                             source={{
-                                uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/other/${props.rating}`
+                                uri: `http://192.168.8.102/restApi-dietHouseSemarang/asset/img/other/${props.rating}`
                             }}
                             style={{ width: 55, height: 12 }}
                         />
@@ -112,7 +112,7 @@ const ShoppingScreen = ({ navigation }) => {
 
     const getDataUsingSimpleGetCall = () => {
         axios
-            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/banner/banner')
+            .get('http://192.168.8.102/restApi-dietHouseSemarang/api/banner/banner')
             .then(function (response) {
                 // handle success
                 // alert(JSON.stringify(response.data));
@@ -132,7 +132,7 @@ const ShoppingScreen = ({ navigation }) => {
     };
     const getAllMenuGetCall = () => {
         axios
-            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/menu')
+            .get('http://192.168.8.102/restApi-dietHouseSemarang/api/menu')
             .then(function (response) {
                 // handle success
                 // alert(JSON.stringify(response.data));
@@ -153,7 +153,7 @@ const ShoppingScreen = ({ navigation }) => {
     };
     const getSomeMenuGetCall = (cat) => {
         axios
-            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/menu/category', {
+            .get('http://192.168.8.102/restApi-dietHouseSemarang/api/menu/category', {
                 params: {
                     category: cat,
                 }
@@ -201,7 +201,7 @@ const ShoppingScreen = ({ navigation }) => {
                             <Image
                                 style={{ width: 326, height: 113, resizeMode: 'contain', marginRight: -6 }}
                                 source={{
-                                    uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/banner/${item.picture}`,
+                                    uri: `http://192.168.8.102/restApi-dietHouseSemarang/asset/img/banner/${item.picture}`,
                                 }}
                             />
                         )}
@@ -265,7 +265,7 @@ const ShoppingScreen = ({ navigation }) => {
                                     <CardMenu
                                         foto_item={item.gambar}
                                         nama_item={item.nmbrg}
-                                        kalori='250'
+                                        kalori={item.kalori}
                                         harga={item.harga}
                                         kategori={item.kategori}
                                         rating='fiveStar.png'

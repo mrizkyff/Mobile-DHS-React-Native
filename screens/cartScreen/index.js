@@ -12,7 +12,7 @@ const MyCard = (props) => {
         <View style={styles.mainCardContainer}>
             {/* <View style={styles.cardImageContainer}>
                         </View> */}
-            <Image source={{ uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/food/${props.gambar}`, }} style={styles.cardImageContainer} />
+            <Image source={{ uri: `http://192.168.8.102/restApi-dietHouseSemarang/asset/img/food/${props.gambar}`, }} style={styles.cardImageContainer} />
             <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'space-between', width: 280, paddingHorizontal: 7 }}>
                 <View style={{ justifyContent: 'space-around', width: 190 }}>
                     <Text style={{ fontSize: 16, fontWeight: '600', color: '#454545' }}>{props.nama}</Text>
@@ -71,7 +71,7 @@ const cartScreen = ({ sessionIdUser, navigation }) => {
 
     const getMyOrderCall = (sessionIdUser) => {
         axios
-            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/transaksi/transaction', {
+            .get('http://192.168.8.102/restApi-dietHouseSemarang/api/transaksi/transaction', {
                 params: {
                     id: sessionIdUser,
                 }

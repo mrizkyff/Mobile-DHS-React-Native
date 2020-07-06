@@ -14,11 +14,11 @@ const detail = ({ route, navigation, sessionIdUser }) => {
 
     const getBeli = () => {
         axios
-            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/Menu/beli', {
+            .get('http://192.168.8.102/restApi-dietHouseSemarang/api/Menu/beli', {
                 params: {
                     id_user: sessionIdUser,
                     id_produk: data_detail.id_produk,
-                    quantity : jumlahBeli,
+                    quantity: jumlahBeli,
                 }
             })
             .then(function (response) {
@@ -52,7 +52,7 @@ const detail = ({ route, navigation, sessionIdUser }) => {
                     alignItems: 'center',
                 }}>
                 <Image
-                    source={{uri: `http://192.168.8.101/restApi-dietHouseSemarang/asset/img/food/${data_detail.gambar}`,}}
+                    source={{ uri: `http://192.168.8.102/restApi-dietHouseSemarang/asset/img/food/${data_detail.gambar}`, }}
                     style={{
                         width: '100%',
                         height: 350,
@@ -65,7 +65,7 @@ const detail = ({ route, navigation, sessionIdUser }) => {
                         {data_detail.nmbrg}
                     </Text>
                     <Text style={{ fontSize: 17, color: 'red', fontWeight: 'bold' }}>
-                        {'Rp '+data_detail.harga}
+                        {'Rp ' + data_detail.harga}
                     </Text>
                     <Text
                         style={{
@@ -84,10 +84,20 @@ const detail = ({ route, navigation, sessionIdUser }) => {
                             marginTop: 5,
                         }}>
                         {data_detail.kalori}
-          </Text>
+                    </Text>
                     <Text style={{ fontSize: 16, fontWeight: '700', color: '#979797' }}>
-                        {'Purpose : '+data_detail.kategori}
-          </Text>
+                        {'Purpose : '}
+                        {data_detail.kategori == '1'
+                            ? 'Weight Loss' : data_detail.kategori == '2'
+                                ? 'Weight Gain' : data_detail.kategori == '3'
+                                    ? 'Muscle Building' : data_detail.kategori == '4'
+                                        ? 'Pregnancy' : data_detail.kategori == '5'
+                                            ? 'Stroke' : data_detail.kategori == '6'
+                                                ? 'Diabetes' : data_detail.kategori == '7'
+                                                    ? 'Cholesterol' : data_detail.kategori == '8'
+                                                        ? 'Hipertensi' : 'NaN'
+                        }
+                    </Text>
                     <View
                         style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text
@@ -98,8 +108,8 @@ const detail = ({ route, navigation, sessionIdUser }) => {
                                 marginTop: 5,
                             }}>
                             {data_detail.kdbrg}
-            </Text>
-                        <Text>{'(stok '+data_detail.stok+')'}</Text>
+                        </Text>
+                        <Text>{'(stok ' + data_detail.stok + ')'}</Text>
                     </View>
                     <Image
                         source={require('./fiveStar.png')}

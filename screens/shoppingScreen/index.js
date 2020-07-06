@@ -70,7 +70,17 @@ const CardMenu = (props) => {
                             {props.kalori + ' Kalori'}
                         </Text>
                         <Text style={{ fontWeight: '400', color: '#979797', fontSize: 14 }}>
-                            {props.kategori}
+                            {/* {props.kategori} */}
+                            {props.kategori == '1'
+                                ? 'Weight Loss' : props.kategori == '2'
+                                    ? 'Weight Gain' : props.kategori == '3'
+                                        ? 'Muscle Building' : props.kategori == '4'
+                                            ? 'Pregnancy' : props.kategori == '5'
+                                                ? 'Stroke' : props.kategori == '6'
+                                                    ? 'Diabetes' : props.kategori == '7'
+                                                        ? 'Cholesterol' : props.kategori == '8'
+                                                            ? 'Hipertensi' : 'NaN'
+                            }
                         </Text>
                         <Text style={{ fontWeight: '500', color: '#979797', fontSize: 15 }}>
                             {'Rp ' + props.harga}
@@ -141,6 +151,31 @@ const ShoppingScreen = ({ navigation }) => {
                 console.log(menu);
             });
     };
+    const getSomeMenuGetCall = (cat) => {
+        axios
+            .get('http://192.168.8.101/restApi-dietHouseSemarang/api/menu/category', {
+                params: {
+                    category: cat,
+                }
+            })
+            .then(function (response) {
+                // handle success
+                // alert(JSON.stringify(response.data.data));
+                setMenu(response.data.data)
+                // console.log(JSON.stringify(response.data))
+            })
+            .catch(function (error) {
+                // handle error
+                alert(error.message);
+            })
+            .finally(function () {
+                // always executed
+                // alert('Finally called');
+                // alert(data);
+                // alert(JSON.stringify(menu))
+                console.log(menu);
+            });
+    };
 
     return (
         <View style={styles.container}>
@@ -180,30 +215,30 @@ const ShoppingScreen = ({ navigation }) => {
                     <View style={styles.viewMenuIcon}>
                         <View style={{ flex: 1, flexDirection: 'column', marginTop: 20 }}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <TouchableOpacity onPress={() => alert('pregnancy')}>
+                                <TouchableOpacity onPress={() => getSomeMenuGetCall('4')}>
                                     <Image source={require('./pregnancy.png')} style={styles.imageIcon} />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => alert('diabetes')}>
+                                <TouchableOpacity onPress={() => getSomeMenuGetCall('6')}>
                                     <Image source={require('./diabetes.png')} style={styles.imageIcon} />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => alert('muscle_building')}>
+                                <TouchableOpacity onPress={() => getSomeMenuGetCall('3')}>
                                     <Image source={require('./muscle_building.png')} style={styles.imageIcon} />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => alert('hipertensi')}>
+                                <TouchableOpacity onPress={() => getSomeMenuGetCall('8')}>
                                     <Image source={require('./hipertensi.png')} style={styles.imageIcon} />
                                 </TouchableOpacity>
                             </View>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <TouchableOpacity onPress={() => alert('kolesterol')}>
+                                <TouchableOpacity onPress={() => getSomeMenuGetCall('7')}>
                                     <Image source={require('./kolesterol.png')} style={styles.imageIcon} />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => alert('stroke')}>
+                                <TouchableOpacity onPress={() => getSomeMenuGetCall('5')}>
                                     <Image source={require('./stroke.png')} style={styles.imageIcon} />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => alert('weight_gain')}>
+                                <TouchableOpacity onPress={() => getSomeMenuGetCall('2')}>
                                     <Image source={require('./weight_gain.png')} style={styles.imageIcon} />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => alert('weight_loss')}>
+                                <TouchableOpacity onPress={() => getSomeMenuGetCall('1')}>
                                     <Image source={require('./weight_loss.png')} style={styles.imageIcon} />
                                 </TouchableOpacity>
                             </View>
@@ -244,7 +279,7 @@ const ShoppingScreen = ({ navigation }) => {
 
             </ScrollView>
 
-            
+
 
 
 

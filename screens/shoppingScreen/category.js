@@ -70,7 +70,7 @@ const CardMenu = (props) => {
 }
 
 
-const category = ({ navigation }) => {
+const category = ({ route,navigation }) => {
 
 
     const [menu, setMenu] = useState([]);

@@ -16,7 +16,18 @@ const MyCard = (props) => {
             <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'space-between', width: 280, paddingHorizontal: 7 }}>
                 <View style={{ justifyContent: 'space-around', width: 190 }}>
                     <Text style={{ fontSize: 16, fontWeight: '600', color: '#454545' }}>{props.nama}</Text>
-                    <Text style={{ color: '#454545' }}>{props.kategori}</Text>
+                    <Text style={{ color: '#454545' }}>
+                        {props.kategori == '1'
+                            ? 'Weight Loss' : props.kategori == '2'
+                                ? 'Weight Gain' : props.kategori == '3'
+                                    ? 'Muscle Building' : props.kategori == '4'
+                                        ? 'Pregnancy' : props.kategori == '5'
+                                            ? 'Stroke' : props.kategori == '6'
+                                                ? 'Diabetes' : props.kategori == '7'
+                                                    ? 'Cholesterol' : props.kategori == '8'
+                                                        ? 'Hipertensi' : 'NaN'
+                        }
+                    </Text>
                     <Text style={{ color: '#454545', fontSize: 10, fontStyle: 'italic' }}>{props.tgl_transaksi}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-around', width: 70 }}>
@@ -48,10 +59,10 @@ const cartScreen = ({ sessionIdUser, navigation }) => {
 
     {
         total == 0
-        ?
-        shipping = 0
-        :
-        shipping = 20000
+            ?
+            shipping = 0
+            :
+            shipping = 20000
     }
 
     useEffect(() => {
@@ -103,7 +114,7 @@ const cartScreen = ({ sessionIdUser, navigation }) => {
                         renderItem={({ item }) => (
                             <MyCard
                                 nama={item.nmbrg}
-                                kategori='Weight Gain'
+                                kategori={item.kategori}
                                 harga={item.harga}
                                 quantity={item.jmlJual}
                                 gambar={item.gambar}
@@ -143,7 +154,7 @@ const cartScreen = ({ sessionIdUser, navigation }) => {
                             style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Text style={{ fontSize: 15 }}>{'Biaya Antar'}</Text>
                             <Text style={{ fontSize: 15, color: '#ffbf57' }}>
-                                {'Rp '+shipping}
+                                {'Rp ' + shipping}
                             </Text>
                         </View>
 
